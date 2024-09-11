@@ -1,12 +1,12 @@
-# Content based Movie Recommender System
+#Content based Movie Recommender System
 
-## Overview
+##Overview
 
 This project is a movie recommender system built using Django. It utilizes a dataset obtained from Kaggle and movie poster URLs retrieved using the IDM API. The system provides movie recommendations based on user queries and features a dynamic search functionality.
 
 ![Screenshot](images/screenshot.png)
 
-## Features
+##Features
 
 - **Movie Listings**: View top recommended movies with pagination.
 - **Movie Details**: Detailed information about each movie including poster, overview, release date, director, and genres.
@@ -14,7 +14,7 @@ This project is a movie recommender system built using Django. It utilizes a dat
 - **Recommendations**: Get movie recommendations based on the selected movie and the searhed movie.
 
 
-## usage
+##usage
 
 1. **Clone the Repository**
 
