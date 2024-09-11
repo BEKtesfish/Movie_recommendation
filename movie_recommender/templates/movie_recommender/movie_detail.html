@@ -1,0 +1,147 @@
+{% extends "movie_recommender/base.html" %}
+{% block content %}
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>{{movie.title.x}}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Movie Detail</title>
+        <style>
+            .body {
+                background-color: black;
+                color: white; /* Set text color to white for better contrast */
+                margin: 0; /* Remove default body margin */
+                font-family: Arial, sans-serif; /* Optional: set a default font */
+            }
+            .movie-details{
+                padding: 20px;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-color: rgba(0,0,0,0.8); /* Fallback background color*/
+                color : white;
+                background-attachment: fixed;
+                min-height: 100vh;/*ensures it covers the viewport height*/
+
+            }
+            .movie-content{
+                background-color:rgb(0,0,0,0.7);/* Slight background to improve text readability */
+                padding: 20px;
+                border-radius: 8px;
+                max-width: 800px;
+                margin: auto;
+            }
+
+            .movie-item img{
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                border-radius:8px;
+            }
+            .movie-item {
+                flex: 0 0 auto;
+                width: 150px;
+                margin-right: 20px;
+                text-align: center;
+            }
+            .movie-item p {
+                margin-top: 10px;
+                font-size: 16px;
+                white-space: normal; /* Allows text to wrap */
+                overflow: hidden; /* Hides any overflow */
+                text-overflow: ellipsis; /* Adds '...' to indicate overflowed text */
+                max-height: 50px; /* Limit to 2 lines */
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* Number of lines */
+                -webkit-box-orient: vertical;
+            }
+           
+            .movie-recommendations{
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 20px;
+                background-color: rgba(0,0,0,0.8);
+            }
+            .recommendation-item{
+                background-color:rgb(0,0,0,0.7);
+                flex: 0 0 auto;
+                width: 150px; /*width*/
+                margin-right: 20px;/*space between items*/
+                text-align: center;
+            }
+
+            .recommendation-item img{
+                width: 100%;
+                height: 225px;
+                object-fit: cover;
+                border-radius: 8px;/*this makes it round corners*/
+                transition: transform 0.2s; /* Optonal: smooth zoom effect when hover*/
+    
+            }
+            .recommendation-item p{
+                margin-top: 10px;
+                font-size: 16px;
+                white-space: normal; /*Allows text to wrap*/
+                overflow: hidden; /*Hides any overflow */
+                text-overflow: ellipsis; /* Adds '...' to indicate overflowed text*/
+                max-height: 50px; /*Limit to 2 lines */
+                display: -webkit-box;
+                -webkit-line-clamp: 2;  /*Number of lines*/
+                -webkit-box-orient: vertical;
+            }
+             /*hover effect for image*/
+            .recommendation-item img:hover{
+                transform: scale(1.05);
+
+            }
+            .recommendation-recommendations::-webkit-scrollbar{
+                display: none;
+            }
+        </style>
+    </head>
+    <body class="body">
+        <div class ="movie-details" style="background-image: url('{{movie.poster_url}}');">
+        <div class = "movie-content">
+        
+        <h1>{{movie.title.x}}</h1>
+        <p>{%if movie.poster_url %}
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} poster" class = "movie-item">
+        {% else %}
+            <img src="{% static 'images/place_holder.png' %}" alt = "No poster available" class="movie-item">
+        {% endif %}</p>
+        <p>over view: {{movie.overview}}</p>
+        <p>Release date: {{movie.release_date}}</p>
+        <p>Director: {{movie.director}}</p>
+        <p>genres: {{movie.genres|join:"/"}}</p>
+        {%if movie.homepage%}
+            <a href="{{ movie.homepage }}" target="_blank">Visit Website</a>
+        {%else%}
+          <p> Website: Unknown</p>
+        {%endif%}
+    </div>
+    </div>
+        <h2>you might also like</h2>
+    <div class="movie-recommendations">
+        {% for recommendation in recommendations %}
+        {% if recommendation.id %}
+        
+            <div class="recommendation-item" onclick="goToMovieDetail({{ recommendation.id }})">
+                <img src="{{recommendation.poster_url}}" alt="movie {{recommendation.id}} poster">
+                <p>{{ recommendation.title_x }}</p>
+            </div>
+        
+        
+        {% endif %}
+    {% endfor %}
+</div>
+    <script>
+        function goToMovieDetail(movieId){
+            window.location.href = `/home/details/${movieId}`;
+        }
+    </script>
+    </body>
+</html>
+{% endblock %}

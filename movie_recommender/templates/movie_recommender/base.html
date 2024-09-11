@@ -1,0 +1,42 @@
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>{% block title %}My website{%endblock%}</title>
+    <link rel = "stylesheet" href="{%static 'shegitu/css/style.css' %}">
+
+</head>
+
+<!--Header-->
+<body>
+    <!--Header-->
+    <header>
+        <nav>
+            <ul>
+                <li><a href ="{%url 'home' %}"">Home</a></li>
+               <form method = "GET" action="{% url 'movie_search' %}">
+                    <input type="text" name="q" placeholder="search for movies..." required>
+                    <button type="submit">Search</button>
+               </form>
+                
+      
+            </ul>
+
+        </nav>
+    </header>
+
+    <!--content-->
+    <div class="content">
+        {%block content%}
+
+        {%endblock%}
+    </div>
+
+    <!--Footer-->
+    <footer>
+        <p>&copy; 2024 MyWebsite. All rights reserved.</p>
+    </footer>
+   
+</body>
+</html>

@@ -1,56 +1,72 @@
+{% extends "movie_recommender/base.html" %}
+{% block content %}
 {%load static%}
 <!DOCTYPE html>
 <html>
     <head>
         <title> Top Movies </title>
         <style>
-            .movie-img {
-                width: 100px;
-                height:auto;
+            .body {
+                background-color: black;
+                color: white; /* Set text color to white for better contrast */
+                margin: 0; /* Remove default body margin */
+                font-family: Arial, sans-serif; /* Optional: set a default font */
             }
-            .movie-table{
+             .movies{
+                display: flex;
+                flex-wrap: wrap; /*Allows items to wrap to the next line */
+                justify-content: space-around; /*Centers items and adds space around them*/
+                padding: 20px;
+                gap: 20px; /*Adds space between items*/
+            }
+            .movie-item{
+                flex: 1 1 150px;
+                max-width: 200px; /*width*/
+                text-align: center;
+            }
+            
+            
+            .movie-item img{
                 width: 100%;
-                border-collapse: collapse;
+                border-radius: 8px;/*this makes it round corners*/
+                transition: transform 0.2s; /* Optonal: smooth zoom effect when hover*/
+    
             }
-            .movie-table th, .movie-table td {
-                padding: 8px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
+          
+            .movie-item img:hover{
+                transform: scale(1.05);
+
             }
+          
+           .pagination{
+            text-align:center;
+            margin-top:20px;
+
+           }
+           .pagination a{
+            margin: 0 5px;
+            text-decoration: none;
+            color: #f5f4f4;
+           }
         </style>
     </head>
-    <body>
+    <body class="body">
         <h1> Movies </h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Poster</th>
-                    <th>Genres</th>
-                    <th>Release date</th>
-                    <th>Runtime</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for movie in movies.object_list %}
-                <tr>
-                    <td>
-                        <p>{{movie.title_x}}</p>
-                    </td>
-                    <td>
-                        {%if movie.poster_url %}
-                            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} poster" class = "movie-img">
-                        {% else %}
-                            <img src="{% static 'images/place_holder.png' %}" alt = "No poster available" class="movie-img">
-                        {% endif %}
-                    </td>
-                    <td>{{movie.genres|join:"/"}}</td> <!--display the genres-->
-                    <td>{{movie.release_date}}</td>
-                    <td>{{movie.runtime}}</td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
+    <div class="movies" > 
+     {% for movie in movies.object_list %}
+               
+        <div class = "movie-item" onclick = "goToMovieDetail({{movie.id}})">           
+        {%if movie.poster_url %}
+            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} poster" >
+        {% else %}
+            <img src="{% static 'images/place_holder.png' %}" alt = "No poster available">
+        {% endif %}  
+            <p>{{movie.genres|join:" / "}}</p> <!--display the genres-->
+            <p>{{movie.release_date}}</p>
+            <p>{{movie.runtime}}</p>
+        </div>    
+        {%endfor%}   
+    </div>
 
     <div class="pagination">
         <span class = "step-links">
@@ -63,9 +79,15 @@
             </span>
             {%if movies.has_next%}
                 <a href="?page={{movies.next_page_number}}">next</a>
-                <a href="?page={{movies.paginaor.num_pages}}">last &raquo;</a>
+                <a href="?page={{movies.paginator.num_pages}}">last &raquo;</a>
             {%endif%}
         </span>
     </div>
+    <script>
+        function goToMovieDetail(movieId){
+            window.location.href = `/home/details/${movieId}`;
+        }
+    </script>
     </body>
 </html>
+{% endblock %}
