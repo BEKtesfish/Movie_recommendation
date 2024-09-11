@@ -1,0 +1,71 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Top Movies </title>
+        <style>
+            .movie-img {
+                width: 100px;
+                height:auto;
+            }
+            .movie-table{
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .movie-table th, .movie-table td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> Movies </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Poster</th>
+                    <th>Genres</th>
+                    <th>Release date</th>
+                    <th>Runtime</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies.object_list %}
+                <tr>
+                    <td>
+                        <p>{{movie.title_x}}</p>
+                    </td>
+                    <td>
+                        {%if movie.poster_url %}
+                            <img src="{{ movie.poster_url }}" alt="{{ movie.title }} poster" class = "movie-img">
+                        {% else %}
+                            <img src="{% static 'images/place_holder.png' %}" alt = "No poster available" class="movie-img">
+                        {% endif %}
+                    </td>
+                    <td>{{movie.genres|join:"/"}}</td> <!--display the genres-->
+                    <td>{{movie.release_date}}</td>
+                    <td>{{movie.runtime}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+    <div class="pagination">
+        <span class = "step-links">
+            {% if movies.has_previous %}
+                <a href = "?page=1">&laquo; first</a>
+                <a href = "?page={{movies.previous_page_number }}">previous</a>
+            {%endif%}
+            <span class = "current">
+                Page {{movies.number}} of {{movies.paginator.num_pages}}
+            </span>
+            {%if movies.has_next%}
+                <a href="?page={{movies.next_page_number}}">next</a>
+                <a href="?page={{movies.paginaor.num_pages}}">last &raquo;</a>
+            {%endif%}
+        </span>
+    </div>
+    </body>
+</html>
