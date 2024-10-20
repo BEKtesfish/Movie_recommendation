@@ -20,7 +20,7 @@ This project is a movie recommender system built using Django. It utilizes a dat
 
    ```bash
    https://github.com/BEKtesfish/Movie_recommendation.git
-   cd your-repo-name
+   cd Movie_recommendation
 
 2. **Navigate**
     *cd recommendation
