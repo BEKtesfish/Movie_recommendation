@@ -19,8 +19,8 @@ This project is a movie recommender system built using Django. It utilizes a dat
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   https://github.com/BEKtesfish/Movie_recommendation.git
+   cd Movie_recommendation
 
 2. **Navigate**
     *cd recommendation
