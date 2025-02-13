@@ -5,6 +5,48 @@
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>{% block title %}My website{%endblock%}</title>
     <link rel = "stylesheet" href="{%static 'shegitu/css/style.css' %}">
+    <style>
+        nav{
+            padding:20px;
+            
+        }
+        nav ul{
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+           
+        }
+        nav ul a{
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+            border: 1px solid whiteSmoke;
+            padding: 10px 15px;
+            border-radius:10px;
+        }
+        .searchBox{
+            width: 250px;
+            
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: 0.3s;
+
+        }
+        .submitBtn{
+            width: 70px;
+           
+            text-align: center;
+        }
+        form{
+            margin-right: 10px;
+        }
+        footer p{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
 
 </head>
 
@@ -13,11 +55,11 @@
     <!--Header-->
     <header>
         <nav>
-            <ul>
+            <ul >
                 <li><a href ="{%url 'home' %}"">Home</a></li>
                <form method = "GET" action="{% url 'movie_search' %}">
-                    <input type="text" name="q" placeholder="search for movies..." required>
-                    <button type="submit">Search</button>
+                    <input  class ="searchBox" type="text" name="q" placeholder="search for movies..." required>
+                    <button class="submitBtn" type="submit">Search</button>
                </form>
                 
       

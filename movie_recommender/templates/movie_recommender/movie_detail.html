@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Movie Detail</title>
         <style>
+           
             .body {
                 background-color: black;
                 color: white; /* Set text color to white for better contrast */
@@ -102,6 +103,7 @@
             }
         </style>
     </head>
+   
     <body class="body">
         <div class ="movie-details" style="background-image: url('{{movie.poster_url}}');">
         <div class = "movie-content">
@@ -123,7 +125,7 @@
         {%endif%}
     </div>
     </div>
-        <h2>you might also like</h2>
+        <h2 style="text-align: center;">you might also like</h2>
     <div class="movie-recommendations">
         {% for recommendation in recommendations %}
         {% if recommendation.id %}
@@ -142,6 +144,6 @@
             window.location.href = `/home/details/${movieId}`;
         }
     </script>
-    </body>
+</body>
 </html>
 {% endblock %}

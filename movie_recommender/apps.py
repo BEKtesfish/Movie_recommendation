@@ -5,6 +5,7 @@ from .data_preprocess import pre_process
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from django.core.cache import cache
+
 class MovieRecommenderConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "movie_recommender"
